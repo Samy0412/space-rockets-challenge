@@ -19,16 +19,20 @@ import {
   Stack,
   AspectRatioBox,
   StatGroup,
+  Tooltip,
 } from "@chakra-ui/core";
+
 
 import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import enUS from "date-fns/esm/locale/en-US/index.js";
+
 
 export default function Launch() {
   let { launchId } = useParams();
-  const { data: launch, error } = useSpaceX(`/launches/${launchId}`);
+  const { data: launch, error } = useSpaceX(`/launches/${launchId}`)
 
   if (error) return <Error />;
   if (!launch) {
@@ -114,6 +118,10 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
+  let timeZone;
+  if (launch.launch_date_local.slice(-5) === "08:00") timeZone = "America/Los_Angeles"
+  if (launch.launch_date_local.slice(-5) === "04:00") timeZone = "America/New_York"
+
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
@@ -122,11 +130,13 @@ function TimeAndLocation({ launch }) {
           <Box ml="2" as="span">
             Launch Date
           </Box>
-        </StatLabel>
-        <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTime(launch.launch_date_local)}
-        </StatNumber>
-        <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
+        </StatLabel> 
+          <StatNumber fontSize={["md", "xl"]}>
+           <Tooltip label={formatDateTime(launch.launch_date_utc)} placement="top-end" hasArrow >
+            {formatDateTime(launch.launch_date_local, timeZone)}
+            </Tooltip>
+          </StatNumber>
+         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
       <Stat>
         <StatLabel display="flex">
