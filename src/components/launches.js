@@ -8,6 +8,7 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import FavoriteButton from "./FavoriteButton";
 
 const PAGE_SIZE = 12;
 
@@ -47,14 +48,18 @@ export default function Launches() {
 
 export function LaunchItem({ launch }) {
   return (
+
+  <Box
+    boxShadow="md"
+    borderWidth="1px"
+    rounded="lg"
+    overflow="hidden"
+    position="relative"
+  > 
+  <FavoriteButton top="2" left="2"/>
     <Box
       as={Link}
       to={`/launches/${launch.flight_number.toString()}`}
-      boxShadow="md"
-      borderWidth="1px"
-      rounded="lg"
-      overflow="hidden"
-      position="relative"
     >
       <Image
         src={
@@ -118,5 +123,6 @@ export function LaunchItem({ launch }) {
         </Flex>
       </Box>
     </Box>
+  </Box>
   );
 }
