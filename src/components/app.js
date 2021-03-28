@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/core";
 
@@ -7,15 +7,27 @@ import Launch from "./launch";
 import Home from "./home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
+import FavoriteButton from "./FavoriteButton";
 
 export default function App() {
+  //States
+  const [favorites,setFavorites]=useState([])
+  
+  const addFavorite = (launch)=>{
+    setFavorites([...favorites, launch])
+  }
+  const removeFavorite = (launch)=>{
+    const newFavorites = favorites.filter((favorite)=> favorite.flight_number !== launch.flight_number )
+    setFavorites(newFavorites);
+  }
+  
   return (
     <div>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches />} />
-        <Route path="/launches/:launchId" element={<Launch />} />
+        <Route path="/launches" element={<Launches addFavorite={addFavorite} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton} favorites={favorites}/>} />
+        <Route path="/launches/:launchId" element={<Launch FavoriteButton={FavoriteButton} removeFavorite={removeFavorite} addFavorite={addFavorite} favorites={favorites}/>} />
         <Route path="/launch-pads" element={<LaunchPads />} />
         <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
       </Routes>

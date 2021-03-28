@@ -1,11 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from "@chakra-ui/core"
 import { FaStar, FaPlus } from "react-icons/fa"
 import "../styles/FavoriteButton.scss"
 
-function FavoriteButton({top,left}) {
-  const [favorite, setFavorite]= useState(false);
-  const toggle = ()=> setFavorite(!favorite);
+function FavoriteButton({top,left, launch, addFavorite, removeFavorite, favorites}) {
+  
+  //State of the button
+  const [favorite, setFavorite]= useState(
+    launch.flight_number === 108 ? true : false
+  )
+
+//  useEffect(()=>{
+//   favorites.forEach((favorite)=> {
+//     if (favorite.flight_number === launch.flight_number) setFavorite(true);
+//   })
+//   setFavorite(false);
+//  },[])
+  
+    
+
+  const handleFavoriteClick = (launch)=> {
+    favorite && removeFavorite(launch);
+    !favorite && addFavorite(launch);
+    setFavorite(!favorite);
+  }
+
   return (
     <div>
        <Button
@@ -20,10 +39,10 @@ function FavoriteButton({top,left}) {
        top={top}
        left={left}
        leftIcon={favorite? FaStar : FaPlus}
-       onClick={toggle}
        _hover={{transform: "scale(1.05)"}}
        _focus={{outline:"none"}}
        className={favorite? "svg" : ""}
+       onClick={()=> handleFavoriteClick(launch)}
        >
          {favorite? "Favorite" : "Add to favorites"}
        </Button>

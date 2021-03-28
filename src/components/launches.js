@@ -8,11 +8,11 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
-import FavoriteButton from "./FavoriteButton";
+
 
 const PAGE_SIZE = 12;
 
-export default function Launches() {
+export default function Launches({FavoriteButton, addFavorite, removeFavorite, favorites }) {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
     "/launches/past",
     {
@@ -33,7 +33,7 @@ export default function Launches() {
           data
             .flat()
             .map((launch) => (
-              <LaunchItem launch={launch} key={launch.flight_number} />
+              <LaunchItem launch={launch} key={launch.flight_number} FavoriteButton={FavoriteButton} addFavorite={addFavorite} removeFavorite={removeFavorite} favorites={favorites}/>
             ))}
       </SimpleGrid>
       <LoadMoreButton
@@ -46,7 +46,7 @@ export default function Launches() {
   );
 }
 
-export function LaunchItem({ launch }) {
+export function LaunchItem({ launch, FavoriteButton, addFavorite, removeFavorite, favorites }) {
   return (
 
   <Box
@@ -56,7 +56,7 @@ export function LaunchItem({ launch }) {
     overflow="hidden"
     position="relative"
   > 
-  <FavoriteButton top="2" left="2"/>
+  <FavoriteButton top="2" left="2" launch={launch} addFavorite={addFavorite} removeFavorite={removeFavorite} favorites={favorites}/>
     <Box
       as={Link}
       to={`/launches/${launch.flight_number.toString()}`}
