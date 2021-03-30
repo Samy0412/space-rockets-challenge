@@ -4,17 +4,34 @@ export const initialState = {
 
 const reducer = (state, action) => {
 
+const saveToLocalStorage = (items)=> {
+  localStorage.setItem("favorites", JSON.stringify(items))
+}
+
 switch(action.type) {
-  case 'ADD_FAVORITE':
+
+  case 'SET_FAVORITES':
     return {
       ...state,
-      favorites:[...state.favorites,action.favorite]
+      favorites:action.favorites
+    }
+
+  case 'ADD_FAVORITE':
+    const addFavorite = [...state.favorites,action.favorite];
+    //Save it locally
+    saveToLocalStorage(addFavorite)
+    return {
+      ...state,
+      favorites: addFavorite
     }
       
   case 'DELETE_FAVORITE':
+    const deleteFavorite = state.favorites.filter((favorite)=> favorite.flight_number !== action.favorite.flight_number )
+      //Save it locally
+    saveToLocalStorage(deleteFavorite)
     return {
       ...state,
-      favorites: state.favorites.filter((favorite)=> favorite.flight_number !== action.favorite.flight_number )
+      favorites: deleteFavorite
     }
 
    default: 

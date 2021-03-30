@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 
 //Chakra UI components
@@ -12,7 +12,23 @@ import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
 import FavoritesDrawer from "./FavoritesDrawer";
 
+//Context API
+import { useDataLayerValue }  from './DataLayer'
+
 export default function App() {
+
+  const [ {}, dispatch ] = useDataLayerValue();
+
+//retrieves the favorites stored in localStorage each time the app opens
+useEffect(()=>{
+const storedFavorites = JSON.parse(
+  localStorage.getItem("favorites")
+)
+dispatch ({
+  type:'SET_FAVORITES',
+  favorites: storedFavorites
+})
+},[])
 
   return (
     <div>

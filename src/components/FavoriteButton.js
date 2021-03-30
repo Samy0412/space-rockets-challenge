@@ -10,7 +10,7 @@ function FavoriteButton({launch, drawer, left, top}) {
   
   const [ {favorites} ,dispatch ] = useDataLayerValue();
 
-
+  
   const addFavorite = (launch)=>{
     dispatch ({
       type:'ADD_FAVORITE',
