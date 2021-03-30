@@ -58,7 +58,7 @@ function FavoriteButton({top,left, launch, addFavorite, removeFavorite, favorite
         _focus={{outline:"none"}}
         onClick={()=> handleFavoriteClick(launch)}
         >
-          Remove
+          Delete
         </Button>
          )}
        
