@@ -1,34 +1,26 @@
-import React, {useState} from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
+
+//Chakra UI components
 import { Flex, Text } from "@chakra-ui/core";
 
+//App components
 import {Launches} from "./launches";
 import Launch from "./launch";
 import Home from "./home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
-import FavoriteButton from "./FavoriteButton";
 import FavoritesDrawer from "./FavoritesDrawer";
 
 export default function App() {
-  //States
-  const [favorites,setFavorites]=useState([])
-  
-  const addFavorite = (launch)=>{
-    setFavorites([...favorites, launch])
-  }
-  const removeFavorite = (launch)=>{
-    const newFavorites = favorites.filter((favorite)=> favorite.flight_number !== launch.flight_number )
-    setFavorites(newFavorites);
-  }
-  
+
   return (
     <div>
-      <NavBar favorites={favorites} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton}/>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches addFavorite={addFavorite} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton} favorites={favorites}/>} />
-        <Route path="/launches/:launchId" element={<Launch FavoriteButton={FavoriteButton} removeFavorite={removeFavorite} addFavorite={addFavorite} favorites={favorites}/>} />
+        <Route path="/launches" element={<Launches/>} />
+        <Route path="/launches/:launchId" element={<Launch />} />
         <Route path="/launch-pads" element={<LaunchPads />} />
         <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
       </Routes>
@@ -36,7 +28,7 @@ export default function App() {
   );
 }
 
-function NavBar({favorites, removeFavorite, FavoriteButton}) {
+function NavBar() {
   return (
     <Flex
       as="nav"
@@ -55,7 +47,7 @@ function NavBar({favorites, removeFavorite, FavoriteButton}) {
       >
         ¡SPACE·R0CKETS!
       </Text>
-      <FavoritesDrawer favorites={favorites} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton}/>
+      <FavoritesDrawer />
     </Flex>
   );
 }

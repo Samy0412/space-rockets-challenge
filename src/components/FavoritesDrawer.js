@@ -17,7 +17,13 @@ import {
 import { FaStar } from "react-icons/fa"
 import {LaunchItem} from "./launches"
 
-function FavoritesDrawer({favorites, removeFavorite, FavoriteButton}) {
+//Context API
+import { useDataLayerValue }  from './DataLayer'
+
+function FavoritesDrawer() {
+
+  const [ {favorites}] = useDataLayerValue();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
@@ -55,7 +61,7 @@ function FavoritesDrawer({favorites, removeFavorite, FavoriteButton}) {
              favorites
              .flat()
              .map((launch) => (
-              <LaunchItem launch={launch} key={launch.flight_number} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton} favorites={favorites} drawer/>
+              <LaunchItem launch={launch} key={launch.flight_number} drawer/>
             ))}
           </SimpleGrid>
           </>

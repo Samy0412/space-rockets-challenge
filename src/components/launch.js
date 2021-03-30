@@ -27,10 +27,11 @@ import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import FavoriteButton from "./FavoriteButton";
 
 
 
-export default function Launch({FavoriteButton, addFavorite, removeFavorite, favorites}) {
+export default function Launch() {
   let { launchId } = useParams();
   const { data: launch, error } = useSpaceX(`/launches/${launchId}`)
 
@@ -55,7 +56,7 @@ export default function Launch({FavoriteButton, addFavorite, removeFavorite, fav
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <Box position="relative" height="4rem">
-        <FavoriteButton launch={launch} addFavorite={addFavorite} removeFavorite={removeFavorite} favorites={favorites}/>
+        <FavoriteButton launch={launch} />
         </Box>
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />

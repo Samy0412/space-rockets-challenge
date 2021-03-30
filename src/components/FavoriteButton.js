@@ -3,9 +3,27 @@ import { Button } from "@chakra-ui/core"
 import { FaStar, FaPlus, FaTimes} from "react-icons/fa"
 import "../styles/FavoriteButton.scss"
 
-function FavoriteButton({top,left, launch, addFavorite, removeFavorite, favorites, drawer}) {
+//Context API
+import { useDataLayerValue }  from './DataLayer'
+
+function FavoriteButton({launch, drawer, left, top}) {
   
-  
+  const [ {favorites} ,dispatch ] = useDataLayerValue();
+
+
+  const addFavorite = (launch)=>{
+    dispatch ({
+      type:'ADD_FAVORITE',
+      favorite: launch
+    })
+  }
+  const removeFavorite = (launch)=>{
+    dispatch ({
+      type:'DELETE_FAVORITE',
+      favorite: launch
+    })
+  }
+
   const isFavorite = (launch)=> {
     let isFavorite = false;
     favorites.forEach((favorite)=> {
@@ -30,10 +48,9 @@ function FavoriteButton({top,left, launch, addFavorite, removeFavorite, favorite
         fontSize="0.85rem"
         fontWeight="600"
         borderRadius="1rem"
-        zIndex="100"
         position="absolute"
-        top={top}
-        left={left}
+        top={top || "2"}
+        left={left || "2"}
         leftIcon={isFavorite(launch)? FaStar : FaPlus}
         _hover={{transform: "scale(1.05)"}}
         _focus={{outline:"none"}}
@@ -46,13 +63,10 @@ function FavoriteButton({top,left, launch, addFavorite, removeFavorite, favorite
         (
         <Button
         backgroundColor="black"
-        color="white"
-        fontSize="15px"
+        color="#dfe5f0"
+        fontSize="0.85rem"
+        fontWeight="600"
         borderRadius="0 0 1rem 0"
-        zIndex="100"
-        position="absolute"
-        top="-10"
-        left="-10"
         leftIcon={FaTimes}
         _hover={{transform: "scale(1.05)"}}
         _focus={{outline:"none"}}
