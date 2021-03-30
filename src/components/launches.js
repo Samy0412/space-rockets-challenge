@@ -12,7 +12,7 @@ import LoadMoreButton from "./load-more-button";
 
 const PAGE_SIZE = 12;
 
-export default function Launches({FavoriteButton, addFavorite, removeFavorite, favorites }) {
+export function Launches({FavoriteButton, addFavorite, removeFavorite, favorites }) {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
     "/launches/past",
     {
@@ -46,7 +46,8 @@ export default function Launches({FavoriteButton, addFavorite, removeFavorite, f
   );
 }
 
-export function LaunchItem({ launch, FavoriteButton, addFavorite, removeFavorite, favorites }) {
+export function LaunchItem({ launch, FavoriteButton, addFavorite, removeFavorite, favorites, drawer }) {
+  
   return (
 
   <Box
@@ -56,7 +57,7 @@ export function LaunchItem({ launch, FavoriteButton, addFavorite, removeFavorite
     overflow="hidden"
     position="relative"
   > 
-  <FavoriteButton top="2" left="2" launch={launch} addFavorite={addFavorite} removeFavorite={removeFavorite} favorites={favorites}/>
+    <FavoriteButton top="2" left="2" launch={launch} addFavorite={addFavorite} removeFavorite={removeFavorite} favorites={favorites} drawer={drawer}/>
     <Box
       as={Link}
       to={`/launches/${launch.flight_number.toString()}`}
@@ -67,7 +68,7 @@ export function LaunchItem({ launch, FavoriteButton, addFavorite, removeFavorite
           launch.links.mission_patch_small
         }
         alt={`${launch.mission_name} launch`}
-        height={["200px", null, "300px"]}
+        height= {!drawer? ["200px", null, "300px"] : "100px"}
         width="100%"
         objectFit="cover"
         objectPosition="bottom"
@@ -126,3 +127,4 @@ export function LaunchItem({ launch, FavoriteButton, addFavorite, removeFavorite
   </Box>
   );
 }
+

@@ -55,7 +55,7 @@ export default function Launch({FavoriteButton, addFavorite, removeFavorite, fav
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <Box position="relative" height="4rem">
-        <FavoriteButton launch={launch} addFavorite={addFavorite} removefavorite={removeFavorite} favorites={favorites}/>
+        <FavoriteButton launch={launch} addFavorite={addFavorite} removeFavorite={removeFavorite} favorites={favorites}/>
         </Box>
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />

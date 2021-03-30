@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/core";
 
-import Launches from "./launches";
+import {Launches} from "./launches";
 import Launch from "./launch";
 import Home from "./home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
 import FavoriteButton from "./FavoriteButton";
+import FavoritesDrawer from "./FavoritesDrawer";
 
 export default function App() {
   //States
@@ -23,7 +24,7 @@ export default function App() {
   
   return (
     <div>
-      <NavBar />
+      <NavBar favorites={favorites} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/launches" element={<Launches addFavorite={addFavorite} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton} favorites={favorites}/>} />
@@ -35,7 +36,7 @@ export default function App() {
   );
 }
 
-function NavBar() {
+function NavBar({favorites, removeFavorite, FavoriteButton}) {
   return (
     <Flex
       as="nav"
@@ -54,6 +55,7 @@ function NavBar() {
       >
         ¡SPACE·R0CKETS!
       </Text>
+      <FavoritesDrawer favorites={favorites} removeFavorite={removeFavorite} FavoriteButton={FavoriteButton}/>
     </Flex>
   );
 }
