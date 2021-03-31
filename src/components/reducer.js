@@ -1,15 +1,18 @@
 export const initialState = {
- favorites:[],
+ favorites:{},
 }
 
 const reducer = (state, action) => {
+
+const { favorite, category, id } = action;
 
 const saveToLocalStorage = (items)=> {
   localStorage.setItem("favorites", JSON.stringify(items))
 }
 
-switch(action.type) {
+const favoritesCategories = state.favorites ? Object.keys(state.favorites): [];
 
+switch(action.type) {
   case 'SET_FAVORITES':
     return {
       ...state,
@@ -17,21 +20,21 @@ switch(action.type) {
     }
 
   case 'ADD_FAVORITE':
-    const addFavorite = [...state.favorites,action.favorite];
+    let arrayAfterAdd = favoritesCategories.includes(category)? [...state.favorites[category], favorite] : [favorite];
     //Save it locally
-    saveToLocalStorage(addFavorite)
+    saveToLocalStorage({...state.favorites, [category]: arrayAfterAdd})
     return {
       ...state,
-      favorites: addFavorite
+      favorites: {...state.favorites, [category]: arrayAfterAdd}
     }
       
   case 'DELETE_FAVORITE':
-    const deleteFavorite = state.favorites.filter((favorite)=> favorite.flight_number !== action.favorite.flight_number )
-      //Save it locally
-    saveToLocalStorage(deleteFavorite)
+    let arrayAfterDelete = state.favorites[category].filter((favorite)=> favorite[id] !== action.favorite[id])
+    //Save it locally
+    saveToLocalStorage({...state.favorites, [category]: arrayAfterDelete})
     return {
       ...state,
-      favorites: deleteFavorite
+      favorites: {...state.favorites, [category]: arrayAfterDelete}
     }
 
    default: 

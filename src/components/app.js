@@ -29,7 +29,7 @@ dispatch ({
   favorites: storedFavorites
 })
 },[])
-
+///////
   return (
     <div>
       <NavBar />

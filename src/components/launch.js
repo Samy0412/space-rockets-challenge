@@ -56,7 +56,7 @@ export default function Launch() {
       <Header launch={launch} />
       <Box m={[3, 6]}>
         <Box position="relative" height="4rem">
-        <FavoriteButton launch={launch} />
+        <FavoriteButton id ={"flight_number"} item={launch} category="launches"/>
         </Box>
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />

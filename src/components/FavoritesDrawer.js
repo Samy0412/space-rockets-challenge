@@ -51,19 +51,21 @@ function FavoritesDrawer() {
           </Flex>
           
           <DrawerBody   marginTop="5" overflow="auto">
-            {favorites.length? (
+            {favorites.launches?.length? (
               <>
+          {/* for now this section has to be copied and adapted for each category of favorites that is added to the drawer */}
            <Heading as="h3" fontSize="1.1rem" fontWeight="500" marginBottom="5">
-            Launches({favorites.length})
+            Launches({favorites.launches?.length})
            </Heading>
            <SimpleGrid columns={1} spacing="5" >
-           {favorites &&
-             favorites
+           {favorites.launches &&
+             favorites.launches
              .flat()
-             .map((launch) => (
-              <LaunchItem launch={launch} key={launch.flight_number} drawer/>
+             .map((favorite) => (
+              <LaunchItem launch={favorite} key={favorite.flight_number} drawer/>
             ))}
           </SimpleGrid>
+          {/* ************ */}
           </>
              ):(
             <Flex  justify="center" marginTop="50px">

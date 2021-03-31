@@ -6,36 +6,37 @@ import "../styles/FavoriteButton.scss"
 //Context API
 import { useDataLayerValue }  from './DataLayer'
 
-function FavoriteButton({launch, drawer, left, top}) {
+function FavoriteButton({id, item, category, drawer, left, top}) {
   
   const [ {favorites} ,dispatch ] = useDataLayerValue();
 
   
-  const addFavorite = (launch)=>{
+  const addFavorite = (item, category)=>{
     dispatch ({
       type:'ADD_FAVORITE',
-      favorite: launch
+      favorite: item,
+      category
     })
   }
-  const removeFavorite = (launch)=>{
+  const removeFavorite = (id, item, category)=>{
     dispatch ({
       type:'DELETE_FAVORITE',
-      favorite: launch
+      favorite: item,
+      category,
+      id
     })
   }
 
-  const isFavorite = (launch)=> {
+  const isFavorite = (id, item, category)=> {
     let isFavorite = false;
-    favorites.forEach((favorite)=> {
-      if(favorite.flight_number === launch.flight_number) isFavorite = true;
+    favorites[category].forEach((favorite)=> {
+      if(favorite[id] === item[id]) isFavorite = true;
     })
   return isFavorite;
   }
 
-
-  const handleFavoriteClick = (launch)=> {
-    isFavorite(launch) && removeFavorite(launch);
-    !isFavorite(launch) && addFavorite(launch);
+  const handleFavoriteClick = (id, item, category)=> {
+    isFavorite(id, item, category) ? removeFavorite(id, item, category): addFavorite( item, category)
   }
 
   return (
@@ -51,13 +52,13 @@ function FavoriteButton({launch, drawer, left, top}) {
         position="absolute"
         top={top || "2"}
         left={left || "2"}
-        leftIcon={isFavorite(launch)? FaStar : FaPlus}
+        leftIcon={isFavorite(id, item, category)? FaStar : FaPlus}
         _hover={{transform: "scale(1.05)"}}
         _focus={{outline:"none"}}
-        className={isFavorite(launch)? "svg" : ""}
-        onClick={()=> handleFavoriteClick(launch)}
+        className={isFavorite(id, item, category)? "svg" : ""}
+        onClick={()=> handleFavoriteClick(id, item, category)}
         >
-          {isFavorite(launch)? "Favorite" : "Add to favorites"}
+          {isFavorite(id, item, category)? "Favorite" : "Add to favorites"}
         </Button>
         ):
         (
@@ -70,7 +71,7 @@ function FavoriteButton({launch, drawer, left, top}) {
         leftIcon={FaTimes}
         _hover={{transform: "scale(1.05)"}}
         _focus={{outline:"none"}}
-        onClick={()=> handleFavoriteClick(launch)}
+        onClick={()=> handleFavoriteClick(id, item, category)}
         >
           Delete
         </Button>
