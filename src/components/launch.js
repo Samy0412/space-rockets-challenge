@@ -25,6 +25,7 @@ import {
 
 import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime } from "../utils/format-date";
+import {useTimeZoneFinder } from "../utils/timeZone";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 
@@ -117,10 +118,8 @@ function Header({ launch }) {
 }
 
 function TimeAndLocation({ launch }) {
-  let timeZone;
-  if (launch.launch_date_local.slice(-5) === "08:00") timeZone = "America/Los_Angeles"
-  if (launch.launch_date_local.slice(-5) === "04:00") timeZone = "America/New_York"
-
+  let timeZone = useTimeZoneFinder (launch.launch_site.site_id)
+  
   return (
     <SimpleGrid columns={[1, 1, 2]} borderWidth="1px" p="4" borderRadius="md">
       <Stat>
