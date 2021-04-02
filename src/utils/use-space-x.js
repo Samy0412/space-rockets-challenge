@@ -1,6 +1,6 @@
 import useSWR, { useSWRInfinite } from "swr";
 
-const fetcher = async (...args) => {
+export const fetcher = async (...args) => {
   const response = await fetch(...args);
   if (!response.ok) {
     throw Error(response.statusText);

@@ -4,16 +4,17 @@ import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
 
 import { useSpaceXPaginated } from "../utils/use-space-x";
+
 import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
 import FavoriteButton from "./FavoriteButton";
 
-
 const PAGE_SIZE = 12;
 
 export function Launches() {
+
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
     "/launches/past",
     {
@@ -23,6 +24,7 @@ export function Launches() {
     }
   );
   console.log(data, error);
+  
   return (
     <div>
       <Breadcrumbs
