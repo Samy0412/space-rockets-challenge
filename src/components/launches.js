@@ -9,9 +9,11 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import FavoriteButton from "./FavoriteButton";
+
 const PAGE_SIZE = 12;
 
-export default function Launches() {
+export function Launches() {
 
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
     "/launches/past",
@@ -47,16 +49,21 @@ export default function Launches() {
   );
 }
 
-export function LaunchItem({ launch }) {
+export function LaunchItem({ launch, drawer }) {
+  
   return (
+
+  <Box
+    boxShadow="md"
+    borderWidth="1px"
+    rounded="lg"
+    overflow="hidden"
+    position="relative"
+  > 
+    <FavoriteButton id = {"flight_number"} item={launch} category="launches" drawer={drawer}/>
     <Box
       as={Link}
       to={`/launches/${launch.flight_number.toString()}`}
-      boxShadow="md"
-      borderWidth="1px"
-      rounded="lg"
-      overflow="hidden"
-      position="relative"
     >
       <Image
         src={
@@ -64,7 +71,7 @@ export function LaunchItem({ launch }) {
           launch.links.mission_patch_small
         }
         alt={`${launch.mission_name} launch`}
-        height={["200px", null, "300px"]}
+        height= {!drawer? ["200px", null, "300px"] : "100px"}
         width="100%"
         objectFit="cover"
         objectPosition="bottom"
@@ -120,5 +127,7 @@ export function LaunchItem({ launch }) {
         </Flex>
       </Box>
     </Box>
+  </Box>
   );
 }
+

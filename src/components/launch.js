@@ -28,6 +28,8 @@ import { formatDateTime } from "../utils/format-date";
 import {useTimeZoneFinder } from "../utils/timeZone";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
+import FavoriteButton from "./FavoriteButton";
+
 
 
 export default function Launch() {
@@ -54,6 +56,9 @@ export default function Launch() {
       />
       <Header launch={launch} />
       <Box m={[3, 6]}>
+        <Box position="relative" height="4rem">
+        <FavoriteButton id ={"flight_number"} item={launch} category="launches"/>
+        </Box>
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />
         <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">

@@ -1,20 +1,41 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
+
+//Chakra UI components
 import { Flex, Text } from "@chakra-ui/core";
 
-import Launches from "./launches";
+//App components
+import {Launches} from "./launches";
 import Launch from "./launch";
 import Home from "./home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
+import FavoritesDrawer from "./FavoritesDrawer";
+
+//Context API
+import { useDataLayerValue }  from './DataLayer'
 
 export default function App() {
+
+  const [ {}, dispatch ] = useDataLayerValue();
+
+//retrieves the favorites stored in localStorage each time the app opens
+useEffect(()=>{
+const storedFavorites = JSON.parse(
+  localStorage.getItem("favorites")
+)
+dispatch ({
+  type:'SET_FAVORITES',
+  favorites: storedFavorites
+})
+},[])
+///////
   return (
     <div>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches />} />
+        <Route path="/launches" element={<Launches/>} />
         <Route path="/launches/:launchId" element={<Launch />} />
         <Route path="/launch-pads" element={<LaunchPads />} />
         <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
@@ -42,6 +63,7 @@ function NavBar() {
       >
         ¡SPACE·R0CKETS!
       </Text>
+      <FavoritesDrawer />
     </Flex>
   );
 }

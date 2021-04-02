@@ -15,11 +15,14 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
+    "react-icons": "^4.2.0",
     "react-router": "^6.0.0-alpha.3",
     "react-router-dom": "^6.0.0-alpha.3",
     "react-scripts": "3.4.3",
+    "sass": "^1.32.8",
     "swr": "^0.3.0",
-    "timeago.js": "^4.0.2"
+    "timeago.js": "^4.0.2",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
