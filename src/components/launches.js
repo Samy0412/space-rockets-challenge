@@ -60,7 +60,7 @@ export function LaunchItem({ launch, drawer }) {
     overflow="hidden"
     position="relative"
   > 
-    <FavoriteButton id = {"flight_number"} item={launch} category="launches" drawer={drawer}/>
+    <FavoriteButton id = {"flight_number"} item={launch} category="launches" drawer={drawer} top={"2"} left={"2"}/>
     <Box
       as={Link}
       to={`/launches/${launch.flight_number.toString()}`}

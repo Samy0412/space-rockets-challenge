@@ -50,8 +50,8 @@ function FavoriteButton({id, item, category, drawer, left, top}) {
         fontWeight="600"
         borderRadius="1rem"
         position="absolute"
-        top={top || "2"}
-        left={left || "2"}
+        top={top || "0"}
+        left={left || "0"}
         leftIcon={isFavorite(id, item, category)? FaStar : FaPlus}
         _hover={{transform: "scale(1.05)"}}
         _focus={{outline:"none"}}
@@ -69,6 +69,9 @@ function FavoriteButton({id, item, category, drawer, left, top}) {
         fontWeight="600"
         borderRadius="0 0 1rem 0"
         leftIcon={FaTimes}
+        position="absolute"
+        top="0"
+        left="0"
         _hover={{transform: "scale(1.05)"}}
         _focus={{outline:"none"}}
         onClick={()=> handleFavoriteClick(id, item, category)}
