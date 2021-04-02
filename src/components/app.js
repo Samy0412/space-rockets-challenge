@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 //Chakra UI components
-import { Flex, Text } from "@chakra-ui/core";
+import { Flex, Text, Image } from "@chakra-ui/core";
 
 //App components
 import {Launches} from "./launches";
@@ -54,15 +54,23 @@ function NavBar() {
       padding="6"
       bg="gray.800"
       color="white"
+      position="sticky"
+      top="0"
+      zIndex="100"
     >
-      <Text
-        fontFamily="mono"
-        letterSpacing="2px"
-        fontWeight="bold"
-        fontSize="lg"
-      >
-        ¡SPACE·R0CKETS!
-      </Text>
+      <Link to="/">
+        <Flex align="center" >
+        <Image src="../rocket-128.png" alt="Rocket" size="45px" marginRight="20px"/>
+        <Text
+          fontFamily="mono"
+          letterSpacing="2px"
+          fontWeight="bold"
+          fontSize="lg"
+        >
+          ¡SPACE·R0CKETS!
+        </Text>
+        </Flex>
+      </Link>
       <FavoritesDrawer />
     </Flex>
   );

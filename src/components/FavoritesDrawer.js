@@ -36,7 +36,7 @@ function FavoritesDrawer() {
 
   return (
     <>
-      <Tooltip  hasArrow placement="bottom" label="Favorites">
+      <Tooltip  hasArrow placement="bottom" label="Favorites" zIndex="200">
       <IconButton ref={btnRef} variant="outline" aria-label="favorites" onClick={onOpen} icon={FaStar} fontSize="30px" color="rgb(223, 205, 9)" _focus={{outline:"none"}}>
         Open
       </IconButton>
