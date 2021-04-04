@@ -897,6 +897,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.13.10":
+  version "7.13.10"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.10.tgz#47d42a57b6095f4468da440388fdbad8bebf0d7d"
+  integrity sha512-4QPkjJq6Ns3V/RgpEahRk+AGfL0eO6RHHtTWoNNr5mO49G6B5+X6d6THgWEAvTrznU5xYpbAlVKRYcsCgh/Akw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6":
   version "7.9.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
@@ -1258,6 +1265,13 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
+
+"@mojs/core@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@mojs/core/-/core-1.0.3.tgz#d33bb725a9d7cf9db8254aa204a271e79ffd5e00"
+  integrity sha512-Tv54I9ucTEiZHh8MYFITK7u7OmtlSERCqCNzYr9s3bEEbpxgX3o7ZiBMWR4pDxY7+Pvg9rOvT+5VgjbxVDw4CA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
