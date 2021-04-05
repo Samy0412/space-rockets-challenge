@@ -42,7 +42,7 @@ function FavoriteButton({
 
   const isFavorite = (id, item, category) => {
     let isFavorite = false;
-    favorites[category] &&
+    favorites &&
       favorites[category].forEach((favorite) => {
         if (favorite[id] === item[id]) isFavorite = true;
       });
