@@ -14,6 +14,7 @@ import FavoriteButton from "./FavoriteButton";
 
 const PAGE_SIZE = 12;
 
+
 //Motion framer props
 const MotionGrid = motion(SimpleGrid);
 const MotionBox = motion(Box);
@@ -35,6 +36,7 @@ const item = {
     scale: 1,
   },
 };
+
 
 export function Launches() {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
