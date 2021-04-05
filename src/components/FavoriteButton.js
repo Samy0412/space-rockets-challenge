@@ -1,7 +1,9 @@
+
 import React, { useRef, useEffect } from "react";
 import { IconButton, Tooltip } from "@chakra-ui/core";
 import { FaRegStar, FaStar, FaTimes } from "react-icons/fa";
 import mojs from "@mojs/core";
+
 
 //Context API
 import { useDataLayerValue } from "./DataLayer";
@@ -18,7 +20,10 @@ function FavoriteButton({
 }) {
   const [{ favorites }, dispatch] = useDataLayerValue();
 
+
   //***handling the addition of removal of a favorite***//
+
+
   const addFavorite = (item, category) => {
     dispatch({
       type: "ADD_FAVORITE",

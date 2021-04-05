@@ -28,13 +28,16 @@ import { useDataLayerValue } from "./DataLayer";
 function FavoritesDrawer() {
   const [{ favorites }] = useDataLayerValue();
 
+
   const favoritesCategories = favorites && Object.keys(favorites);
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
   return (
     <>
+
       <Tooltip hasArrow placement="bottom" label="Favorites" zIndex="200">
         <IconButton
           ref={btnRef}
