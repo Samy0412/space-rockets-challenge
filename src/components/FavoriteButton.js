@@ -1,10 +1,5 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-  createPortal,
-} from "react";
+import React, { useRef, useEffect, useState } from "react";
+// import ReactDom from "react-dom";
 import { Button, IconButton } from "@chakra-ui/core";
 import { FaRegStar, FaStar, FaTimes } from "react-icons/fa";
 import mojs from "@mojs/core";
@@ -70,7 +65,7 @@ function FavoriteButton({ id, item, category, drawer, left, top }) {
       fill: "none",
       scale: { 0: 1, easing: "quad.out" },
       radius: RADIUS,
-      duration: 1000,
+      duration: 500,
     });
     star.current = new mojs.Shape({
       parent: animDom.current,
@@ -110,24 +105,22 @@ function FavoriteButton({ id, item, category, drawer, left, top }) {
     isFavorite(id, item, category) ? setFavorite(true) : setFavorite(false);
   }, []);
 
-  const handleFavoriteClick = useCallback((id, item, category) => {
+  const handleFavoriteClick = (id, item, category) => {
     if (isFavorite(id, item, category)) {
       removeFavorite(id, item, category);
     }
     if (!isFavorite(id, item, category)) {
       addFavorite(item, category);
       animation.current.play();
-      // star.current.tune({ fill: "none" });
     }
     setFavorite(!favorite);
-  });
+  };
 
   return (
     <div>
       {!drawer ? (
         <IconButton
           backgroundColor="black"
-          color="#dfe5f0"
           size="lg"
           fontSize="30px"
           borderRadius="50%"
@@ -142,6 +135,7 @@ function FavoriteButton({ id, item, category, drawer, left, top }) {
           _focus={{ outline: "none" }}
           ref={animDom}
           onClick={() => handleFavoriteClick(id, item, category)}
+          zindex="2000"
         ></IconButton>
       ) : (
         <Button

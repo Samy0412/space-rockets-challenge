@@ -25,7 +25,7 @@ export function Launches() {
   console.log(data, error);
 
   return (
-    <div id="parent">
+    <div>
       <Breadcrumbs
         items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
       />
@@ -54,7 +54,7 @@ export function LaunchItem({ launch, drawer }) {
       boxShadow="md"
       borderWidth="1px"
       rounded="lg"
-      overflow="hidden"
+      overflow="visible"
       position="relative"
     >
       <FavoriteButton
@@ -74,6 +74,7 @@ export function LaunchItem({ launch, drawer }) {
           width="100%"
           objectFit="cover"
           objectPosition="bottom"
+          roundedTop="lg"
         />
 
         <Image

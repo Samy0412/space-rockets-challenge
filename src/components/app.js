@@ -16,7 +16,7 @@ import FavoritesDrawer from "./FavoritesDrawer";
 import { useDataLayerValue } from "./DataLayer";
 
 export default function App() {
-  const [{}, dispatch] = useDataLayerValue();
+  const [{ favorites }, dispatch] = useDataLayerValue();
 
   //retrieves the favorites stored in localStorage each time the app opens
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function App() {
       type: "SET_FAVORITES",
       favorites: storedFavorites,
     });
-  }, []);
+  }, [dispatch]);
   ///////
   return (
     <div>
