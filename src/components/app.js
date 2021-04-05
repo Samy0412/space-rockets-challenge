@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 
 //Chakra UI components
-import { Flex, Text } from "@chakra-ui/core";
+import { Flex, Text, Image } from "@chakra-ui/core";
 
 //App components
-import {Launches} from "./launches";
+import { Launches } from "./launches";
 import Launch from "./launch";
 import Home from "./home";
 import LaunchPads from "./launch-pads";
@@ -13,29 +13,26 @@ import LaunchPad from "./launch-pad";
 import FavoritesDrawer from "./FavoritesDrawer";
 
 //Context API
-import { useDataLayerValue }  from './DataLayer'
+import { useDataLayerValue } from "./DataLayer";
 
 export default function App() {
+  const [{ favorites }, dispatch] = useDataLayerValue();
 
-  const [ {}, dispatch ] = useDataLayerValue();
-
-//retrieves the favorites stored in localStorage each time the app opens
-useEffect(()=>{
-const storedFavorites = JSON.parse(
-  localStorage.getItem("favorites")
-)
-dispatch ({
-  type:'SET_FAVORITES',
-  favorites: storedFavorites
-})
-},[])
-///////
+  //retrieves the favorites stored in localStorage each time the app opens
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
+    dispatch({
+      type: "SET_FAVORITES",
+      favorites: storedFavorites,
+    });
+  }, [dispatch]);
+  ///////
   return (
     <div>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches/>} />
+        <Route path="/launches" element={<Launches />} />
         <Route path="/launches/:launchId" element={<Launch />} />
         <Route path="/launch-pads" element={<LaunchPads />} />
         <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
@@ -54,15 +51,28 @@ function NavBar() {
       padding="6"
       bg="gray.800"
       color="white"
+      position="sticky"
+      top="0"
+      zIndex="2"
     >
-      <Text
-        fontFamily="mono"
-        letterSpacing="2px"
-        fontWeight="bold"
-        fontSize="lg"
-      >
-        ¡SPACE·R0CKETS!
-      </Text>
+      <Link to="/">
+        <Flex align="center">
+          <Image
+            src="../rocket-128.png"
+            alt="Rocket"
+            size="45px"
+            marginRight="20px"
+          />
+          <Text
+            fontFamily="mono"
+            letterSpacing="2px"
+            fontWeight="bold"
+            fontSize="lg"
+          >
+            ¡SPACE·R0CKETS!
+          </Text>
+        </Flex>
+      </Link>
       <FavoritesDrawer />
     </Flex>
   );
