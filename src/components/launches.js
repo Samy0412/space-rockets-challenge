@@ -35,7 +35,12 @@ export function Launches() {
           data
             .flat()
             .map((launch) => (
-              <LaunchItem launch={launch} key={launch.flight_number} />
+              <LaunchItem
+                launch={launch}
+                key={launch.flight_number}
+                top={2}
+                left={2}
+              />
             ))}
       </SimpleGrid>
       <LoadMoreButton
@@ -48,7 +53,7 @@ export function Launches() {
   );
 }
 
-export function LaunchItem({ launch, drawer }) {
+export function LaunchItem({ launch, drawer, top, left, right, bottom }) {
   return (
     <Box
       boxShadow="md"
@@ -62,6 +67,10 @@ export function LaunchItem({ launch, drawer }) {
         item={launch}
         category="launches"
         drawer={drawer}
+        top={top}
+        left={left}
+        right={right}
+        bottom={bottom}
       />
       <Box as={Link} to={`/launches/${launch.flight_number.toString()}`}>
         <Image

@@ -89,6 +89,8 @@ function FavoritesDrawer() {
                                     launch={favorite}
                                     key={favorite.flight_number}
                                     drawer
+                                    top={-12}
+                                    right={-12}
                                   />
                                 ))}
                             {/* ************ */}

@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-// import ReactDom from "react-dom";
-import { Button, IconButton } from "@chakra-ui/core";
+import React, { useRef, useEffect } from "react";
+import { IconButton, Tooltip } from "@chakra-ui/core";
 import { FaRegStar, FaStar, FaTimes } from "react-icons/fa";
 import mojs from "@mojs/core";
 import "../styles/FavoriteButton.scss";
@@ -8,9 +7,17 @@ import "../styles/FavoriteButton.scss";
 //Context API
 import { useDataLayerValue } from "./DataLayer";
 
-function FavoriteButton({ id, item, category, drawer, left, top }) {
+function FavoriteButton({
+  id,
+  item,
+  category,
+  drawer,
+  left,
+  right,
+  top,
+  bottom,
+}) {
   const [{ favorites }, dispatch] = useDataLayerValue();
-  const [favorite, setFavorite] = useState(false);
 
   //***handling the addition of removal of a favorite***//
   const addFavorite = (item, category) => {
@@ -101,19 +108,13 @@ function FavoriteButton({ id, item, category, drawer, left, top }) {
     animation.current.add(burst, circle, star.current);
   });
 
-  useEffect((id, item, category) => {
-    isFavorite(id, item, category) ? setFavorite(true) : setFavorite(false);
-  }, []);
-
   const handleFavoriteClick = (id, item, category) => {
     if (isFavorite(id, item, category)) {
       removeFavorite(id, item, category);
-    }
-    if (!isFavorite(id, item, category)) {
+    } else {
       addFavorite(item, category);
       animation.current.play();
     }
-    setFavorite(!favorite);
   };
 
   return (
@@ -125,32 +126,44 @@ function FavoriteButton({ id, item, category, drawer, left, top }) {
           fontSize="30px"
           borderRadius="50%"
           position="absolute"
-          top={top || "2"}
-          left={left || "2"}
+          top={top}
+          left={left}
+          right={right}
+          bottom={bottom}
           icon={!isFavorite(id, item, category) ? FaRegStar : FaStar}
           color={
             !isFavorite(id, item, category) ? "#DFE5F0" : "rgb(223, 205, 9)"
           }
           _hover={{ transform: "scale(1.05)" }}
           _focus={{ outline: "none" }}
-          ref={animDom}
           onClick={() => handleFavoriteClick(id, item, category)}
-          zindex="2000"
+          zindex="3"
+          ref={animDom}
         ></IconButton>
       ) : (
-        <Button
-          backgroundColor="black"
-          color="#dfe5f0"
-          fontSize="0.85rem"
-          fontWeight="600"
-          borderRadius="0 0 1rem 0"
-          leftIcon={FaTimes}
-          _hover={{ transform: "scale(1.05)" }}
-          _focus={{ outline: "none" }}
-          onClick={() => handleFavoriteClick(id, item, category)}
+        <Tooltip
+          label="remove from favorites"
+          aria-label="A tooltip"
+          placement="bottom"
         >
-          Delete
-        </Button>
+          <IconButton
+            backgroundColor="black"
+            color="#dfe5f0"
+            position="absolute"
+            minWidth="2rem"
+            height="2rem"
+            top={top}
+            left={left}
+            right={right}
+            bottom={bottom}
+            borderRadius="50%"
+            icon={FaTimes}
+            _hover={{ transform: "scale(1.05)" }}
+            _focus={{ outline: "none" }}
+            onClick={() => handleFavoriteClick(id, item, category)}
+            zIndex="3"
+          ></IconButton>
+        </Tooltip>
       )}
     </div>
   );
