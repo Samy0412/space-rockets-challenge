@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge, Box, SimpleGrid, Text } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
@@ -8,6 +9,28 @@ import LoadMoreButton from "./load-more-button";
 import { useSpaceXPaginated } from "../utils/use-space-x";
 
 const PAGE_SIZE = 12;
+
+//Motion framer props
+const MotionGrid = motion(SimpleGrid);
+const MotionBox = motion(Box);
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.3,
+    },
+  },
+};
+const item = {
+  hidden: { y: 40, opacity: 0, scale: 0.9 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+  },
+};
 
 export default function LaunchPads() {
   const { data, error, isValidating, size, setSize } = useSpaceXPaginated(
@@ -22,7 +45,14 @@ export default function LaunchPads() {
       <Breadcrumbs
         items={[{ label: "Home", to: "/" }, { label: "Launch Pads" }]}
       />
-      <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
+      <MotionGrid
+        m={[2, null, 6]}
+        minChildWidth="350px"
+        spacing="4"
+        variants={container}
+        initial="hidden"
+        animate="visible"
+      >
         {error && <Error />}
         {data &&
           data
@@ -30,7 +60,7 @@ export default function LaunchPads() {
             .map((launchPad) => (
               <LaunchPadItem key={launchPad.site_id} launchPad={launchPad} />
             ))}
-      </SimpleGrid>
+      </MotionGrid>
       <LoadMoreButton
         loadMore={() => setSize(size + 1)}
         data={data}
@@ -43,7 +73,7 @@ export default function LaunchPads() {
 
 function LaunchPadItem({ launchPad }) {
   return (
-    <Box
+    <MotionBox
       as={Link}
       to={`/launch-pads/${launchPad.site_id}`}
       boxShadow="md"
@@ -51,6 +81,7 @@ function LaunchPadItem({ launchPad }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      variants={item}
     >
       <Box p="6">
         <Box d="flex" alignItems="baseline">
@@ -89,6 +120,6 @@ function LaunchPadItem({ launchPad }) {
           {launchPad.vehicles_launched.join(", ")}
         </Text>
       </Box>
-    </Box>
+    </MotionBox>
   );
 }

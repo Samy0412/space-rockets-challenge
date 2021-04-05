@@ -2,6 +2,7 @@ import React from "react";
 import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core";
 import { format as timeAgo } from "timeago.js";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { useSpaceXPaginated } from "../utils/use-space-x";
 
@@ -12,6 +13,28 @@ import LoadMoreButton from "./load-more-button";
 import FavoriteButton from "./FavoriteButton";
 
 const PAGE_SIZE = 12;
+
+//Motion framer props
+const MotionGrid = motion(SimpleGrid);
+const MotionBox = motion(Box);
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.3,
+    },
+  },
+};
+const item = {
+  hidden: { y: 40, opacity: 0, scale: 0.9 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+  },
+};
 
 export function Launches() {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
@@ -29,7 +52,14 @@ export function Launches() {
       <Breadcrumbs
         items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
       />
-      <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
+      <MotionGrid
+        m={[2, null, 6]}
+        minChildWidth="350px"
+        spacing="4"
+        variants={container}
+        initial="hidden"
+        animate="visible"
+      >
         {error && <Error />}
         {data &&
           data
@@ -42,7 +72,7 @@ export function Launches() {
                 left={2}
               />
             ))}
-      </SimpleGrid>
+      </MotionGrid>
       <LoadMoreButton
         loadMore={() => setSize(size + 1)}
         data={data}
@@ -55,12 +85,13 @@ export function Launches() {
 
 export function LaunchItem({ launch, drawer, top, left, right, bottom }) {
   return (
-    <Box
+    <MotionBox
       boxShadow="md"
       borderWidth="1px"
       rounded="lg"
       overflow="visible"
       position="relative"
+      variants={item}
     >
       <FavoriteButton
         id={"flight_number"}
@@ -136,6 +167,6 @@ export function LaunchItem({ launch, drawer, top, left, right, bottom }) {
           </Flex>
         </Box>
       </Box>
-    </Box>
+    </MotionBox>
   );
 }
